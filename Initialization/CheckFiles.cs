@@ -21,6 +21,10 @@ namespace SPChat.Initialization
                 {
                     Resources.DefaultConfigs.write_DEFAULT_connection_conf();
                 }
+                if (!paths.Contains("peer2peer.conf"))
+                {
+                    Resources.DefaultConfigs.write_DEFAULT_peer2peer_conf();
+                }
 
 
 
