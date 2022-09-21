@@ -78,7 +78,17 @@ namespace SPChat.Resources
 
             XmlElement main_element = doc.CreateElement(string.Empty, "Config", string.Empty);
             doc.AppendChild(main_element);
-            //
+
+            ///////// network tree
+                XmlElement networkElement = doc.CreateElement(string.Empty,"NetworkThisPC", string.Empty);
+                main_element.AppendChild(networkElement);
+            ///// ListenIP
+                    XmlElement listenip = doc.CreateElement(string.Empty, "ListenIP", string.Empty);
+                    XmlText ip = doc.CreateTextNode("127.0.0.1");
+                    networkElement.AppendChild(listenip);
+                    listenip.AppendChild(ip);
+                
+
 
             doc.Save("Config\\peer2peer.conf");
         }
