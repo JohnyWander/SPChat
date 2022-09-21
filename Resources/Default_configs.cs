@@ -45,20 +45,42 @@ namespace SPChat.Resources
             main_element.AppendChild(client_tree);
 
             //////////// ClientChatColor
-            XmlElement ccc = doc.CreateElement(string.Empty, "ClientChatColor", string.Empty);
-            XmlText color = doc.CreateTextNode("Red");
-            client_tree.AppendChild(ccc);
-            ccc.AppendChild(color);
+                XmlElement ccc = doc.CreateElement(string.Empty, "ClientChatColor", string.Empty);
+                XmlText color = doc.CreateTextNode("Red");
+                client_tree.AppendChild(ccc);
+                ccc.AppendChild(color);
 
-
+            /////////// LoadChatmembersColors
+            ///
+                XmlElement LcmC = doc.CreateElement(string.Empty, "LoadChatMembersColors", string.Empty);
+                XmlText allowmembersColors = doc.CreateTextNode("true");
+                client_tree.AppendChild(LcmC);
+                LcmC.AppendChild(allowmembersColors);
 
 
             //XmlElement color
             
 
-            doc.Save(Directory.GetCurrentDirectory() + "//document.xml");
-
+            doc.Save( "Config\\connection.conf");
+            
         }
 
+
+        public static void write_DEFAULT_peer2peer_conf()
+        {
+
+            XmlDocument doc = new XmlDocument();
+            XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+
+            // root
+            XmlElement  root = doc.DocumentElement;
+            doc.InsertBefore(xmlDeclaration, root);
+
+            XmlElement main_element = doc.CreateElement(string.Empty, "Config", string.Empty);
+            doc.AppendChild(main_element);
+            //
+
+            doc.Save("Config\\peer2peer.conf");
+        }
     }
 }
