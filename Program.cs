@@ -1,0 +1,21 @@
+namespace SPChat
+{
+    internal static class Program
+    {
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            Initialization.CheckFiles.run();
+            
+            ApplicationConfiguration.Initialize();
+            Application.Run(new SPChat());
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+        }
+
+
+     
+    }
+}
