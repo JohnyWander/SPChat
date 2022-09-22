@@ -13,20 +13,33 @@ namespace SPChat.Initialization
             if (!Directory.Exists("Config"))
             {
                 Directory.CreateDirectory("Config");
+                MessageBox.Show("NIMO");
             }
             else
             {
-                string[] paths = Directory.GetFiles("Config");
-                if (!paths.Contains("connection.conf"))
-                {
-                    Resources.DefaultConfigs.write_DEFAULT_connection_conf();
-                }
-                if (!paths.Contains("peer2peer.conf"))
-                {
-                    Resources.DefaultConfigs.write_DEFAULT_peer2peer_conf();
-                }
 
+                string folder = "Config\\";
+         
+                    if (!File.Exists(folder+"connection.conf"))
+                    {
+                        MessageBox.Show("NIE");
+                        Resources.DefaultConfigs.write_DEFAULT_connection_conf();
+                    }
+                    else { }
+                    
+                    if (!File.Exists(folder + "peer2peer.conf"))
+                    {
+                        Resources.DefaultConfigs.write_DEFAULT_peer2peer_conf();
+                    }
+                    else { }
 
+                    if (!File.Exists(folder + "server.conf"))
+                    {
+                        Resources.DefaultConfigs.write_DEFAULT_host_conf();
+                    }
+                    else { }
+
+                
 
             }
 

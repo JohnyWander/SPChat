@@ -62,6 +62,7 @@ namespace SPChat.Resources
             
 
             doc.Save( "Config\\connection.conf");
+            doc = null;
             
         }
 
@@ -87,10 +88,81 @@ namespace SPChat.Resources
                     XmlText ip = doc.CreateTextNode("127.0.0.1");
                     networkElement.AppendChild(listenip);
                     listenip.AppendChild(ip);
-                
+
+            //// Listen port
+                    XmlElement listenport = doc.CreateElement(string.Empty, "Port", string.Empty);
+                    XmlText port = doc.CreateTextNode("3333");
+                    networkElement.AppendChild(listenport);
+                    listenport.AppendChild(port);
+
+            //// Allow being relay for others in peer to peer mode
+                    XmlElement allowRelay = doc.CreateElement(string.Empty, "AllowBeingRelay", string.Empty);
+                    XmlText AR = doc.CreateTextNode("true");
+                    networkElement.AppendChild(allowRelay);
+                    allowRelay.AppendChild(AR);
 
 
+ 
+            
             doc.Save("Config\\peer2peer.conf");
+            doc = null;
+        }
+
+
+
+        public static void write_DEFAULT_host_conf()
+        {
+
+            XmlDocument doc = new XmlDocument();
+            XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+
+            // root
+            XmlElement root = doc.DocumentElement;
+            doc.InsertBefore(xmlDeclaration, root);
+
+            XmlElement main_element = doc.CreateElement(string.Empty, "Config", string.Empty);
+            doc.AppendChild(main_element);
+
+            ///////// network config tree
+            XmlElement NetworkTree = doc.CreateElement(string.Empty, "Network", string.Empty);
+            main_element.AppendChild(NetworkTree);
+
+            ////// listen ip
+                XmlElement listenip = doc.CreateElement(string.Empty,"ListenIP",string.Empty);
+                XmlText ip = doc.CreateTextNode("127.0.0.1");
+                NetworkTree.AppendChild(listenip);
+                listenip.AppendChild(ip);
+
+            ////// port
+                XmlElement listenport = doc.CreateElement(string.Empty, "ListenPort", string.Empty);
+                XmlText port = doc.CreateTextNode("4444");
+                NetworkTree.AppendChild(listenport);
+                listenport.AppendChild(port);
+
+            ///////// Clients config tree
+
+            XmlElement Clients_tree = doc.CreateElement(string.Empty, "Clients", string.Empty);
+            main_element.AppendChild(Clients_tree);
+
+            //////// Max_room_size
+                XmlElement MaxRoomSize = doc.CreateElement(string.Empty, "MaxRoomSize",string.Empty);
+                XmlText MRS = doc.CreateTextNode("2");
+                Clients_tree.AppendChild(MaxRoomSize);
+                MaxRoomSize.AppendChild(MRS);
+            /////// UseWhitelist
+                XmlElement usewhitelist = doc.CreateElement(string.Empty, "UseWhiteList", string.Empty);
+                XmlText uwl = doc.CreateTextNode("false");
+                Clients_tree.AppendChild(usewhitelist);
+                usewhitelist.AppendChild(uwl);
+
+            /// whitelist itself
+                XmlElement whitelist = doc.CreateElement(string.Empty, "Whitelist", string.Empty);
+                XmlText wl = doc.CreateTextNode( "192.168.0.1,192.168.0.1,172.0.0.1-172.0.0.220");
+                Clients_tree.AppendChild(whitelist);
+                whitelist.AppendChild(wl);
+
+            doc.Save("Config\\server.conf");
+            doc = null; 
         }
     }
 }
