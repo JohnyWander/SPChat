@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ColorMode = new System.Windows.Forms.CheckBox();
             this.rgb_input = new System.Windows.Forms.TextBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.SuspendLayout();
             // 
             // ColorComboBox
@@ -105,5 +106,6 @@
         private Label label1;
         private CheckBox ColorMode;
         private TextBox rgb_input;
+        private ColorDialog colorDialog1;
     }
 }

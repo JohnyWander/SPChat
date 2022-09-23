@@ -22,7 +22,7 @@ namespace SPChat.Initialization
          
                     if (!File.Exists(folder+"connection.conf"))
                     {
-                        MessageBox.Show("NIE");
+                        
                         Resources.DefaultConfigs.write_DEFAULT_connection_conf();
                     }
                     else { }

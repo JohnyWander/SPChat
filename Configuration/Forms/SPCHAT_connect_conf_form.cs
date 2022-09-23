@@ -25,6 +25,7 @@ namespace SPChat.Configuration.Forms
                 this.ColorComboBox.Visible = true;
                 this.ColorComboBox.Enabled = true;
 
+               
                 this.rgb_input.Visible = false;
                 this.rgb_input.Enabled = false;
             }
@@ -39,8 +40,16 @@ namespace SPChat.Configuration.Forms
                 this.rgb_input.Location = insert_location;
                 this.rgb_input.Width = this.ColorComboBox.Width;
                 this.rgb_input.Visible = true;
-                this.rgb_input.Enabled = true;
-                this.rgb_input.Text = "RGB - 0;0;0";
+                this.rgb_input.Enabled = false;
+
+                this.colorDialog1.ShowDialog();
+                Color selected = colorDialog1.Color;
+               // MessageBox.Show(selected.ToArgb().ToString());
+                
+                this.rgb_input.Text = "ARGB - " + selected.A + ";" + selected.R+";" + selected.G + ";" + selected.B;
+
+
+
 
             }
         }
