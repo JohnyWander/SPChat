@@ -33,6 +33,7 @@
             this.ColorMode = new System.Windows.Forms.CheckBox();
             this.rgb_input = new System.Windows.Forms.TextBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.ChooseColor_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ColorComboBox
@@ -49,6 +50,7 @@
             this.ColorComboBox.Name = "ColorComboBox";
             this.ColorComboBox.Size = new System.Drawing.Size(121, 23);
             this.ColorComboBox.TabIndex = 0;
+            this.ColorComboBox.SelectedIndexChanged += this.ComboBox_color_selected;
             // 
             // label1
             // 
@@ -75,7 +77,7 @@
             // rgb_input
             // 
             this.rgb_input.Enabled = false;
-            this.rgb_input.Location = new System.Drawing.Point(1, 226);
+            this.rgb_input.Location = new System.Drawing.Point(12, 227);
             this.rgb_input.Name = "rgb_input";
             this.rgb_input.Size = new System.Drawing.Size(100, 23);
             this.rgb_input.TabIndex = 3;
@@ -83,12 +85,25 @@
             this.rgb_input.Visible = false;
             this.rgb_input.Click += new System.EventHandler(this.rgb_input_remove_placeholder);
             // 
+            // ChooseColor_button
+            // 
+            this.ChooseColor_button.Enabled = false;
+            this.ChooseColor_button.Location = new System.Drawing.Point(148, 52);
+            this.ChooseColor_button.Name = "ChooseColor_button";
+            this.ChooseColor_button.Size = new System.Drawing.Size(123, 23);
+            this.ChooseColor_button.TabIndex = 4;
+            this.ChooseColor_button.Text = "Choose Color";
+            this.ChooseColor_button.UseVisualStyleBackColor = true;
+            this.ChooseColor_button.Visible = false;
+            this.ChooseColor_button.Click += new System.EventHandler(this.Choose_color_button);
+            // 
             // SPCHAT_connect_conf_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(111)))), ((int)(((byte)(111)))));
             this.ClientSize = new System.Drawing.Size(319, 251);
+            this.Controls.Add(this.ChooseColor_button);
             this.Controls.Add(this.rgb_input);
             this.Controls.Add(this.ColorMode);
             this.Controls.Add(this.label1);
@@ -107,5 +122,6 @@
         private CheckBox ColorMode;
         private TextBox rgb_input;
         private ColorDialog colorDialog1;
+        private Button ChooseColor_button;
     }
 }

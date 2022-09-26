@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace SPChat.Configuration.Forms
 {
@@ -28,6 +29,11 @@ namespace SPChat.Configuration.Forms
                
                 this.rgb_input.Visible = false;
                 this.rgb_input.Enabled = false;
+
+                this.ChooseColor_button.Enabled = false;
+                this.ChooseColor_button.Visible = false;
+
+
             }
 
             if(!this.ColorMode.Checked)
@@ -42,17 +48,28 @@ namespace SPChat.Configuration.Forms
                 this.rgb_input.Visible = true;
                 this.rgb_input.Enabled = false;
 
-                this.colorDialog1.ShowDialog();
-                Color selected = colorDialog1.Color;
+                this.ChooseColor_button.Enabled = true;
+                this.ChooseColor_button.Visible = true;
+
+
+                
                // MessageBox.Show(selected.ToArgb().ToString());
                 
-                this.rgb_input.Text = "ARGB - " + selected.A + ";" + selected.R+";" + selected.G + ";" + selected.B;
+               
 
 
 
 
             }
         }
+
+
+        private void ComboBox_color_selected(object sender, EventArgs e)
+        {
+
+        }
+
+
 
         private void rgb_input_remove_placeholder(object sender, EventArgs e)
         {
@@ -63,5 +80,15 @@ namespace SPChat.Configuration.Forms
             }
 
         }
+
+       private void Choose_color_button(object sender,EventArgs e)
+        {
+            this.colorDialog1.ShowDialog();          
+            Color selected = colorDialog1.Color;
+            this.rgb_input.Text = "ARGB - " + selected.A + ";" + selected.R + ";" + selected.G + ";" + selected.B;
+            Configuration.ConfigManipulator.Open_config(ConfigManipulator.Config.connection);
+        }
+
+
     }
 }
