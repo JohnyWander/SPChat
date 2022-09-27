@@ -22,5 +22,16 @@ namespace SPChat
 
             connect_form.ShowDialog();
         }
+
+      
+
+        private void ConnectServer_button_Click(object sender, EventArgs e)
+        {
+            ConnectionFunc.Forms.ConnectionForm ConnectionForm = new ConnectionFunc.Forms.ConnectionForm();
+            ConnectionForm.ShowDialog();
+        }
+
+
+
     }
 }

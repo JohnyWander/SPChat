@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.ConnectServer_button = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.open_connect_config = new System.Windows.Forms.Button();
@@ -36,14 +36,15 @@
             this.button6 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // ConnectServer_button
             // 
-            this.button1.Location = new System.Drawing.Point(12, 66);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(152, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Connect Server";
-            this.button1.UseVisualStyleBackColor = true;
+            this.ConnectServer_button.Location = new System.Drawing.Point(12, 66);
+            this.ConnectServer_button.Name = "ConnectServer_button";
+            this.ConnectServer_button.Size = new System.Drawing.Size(152, 23);
+            this.ConnectServer_button.TabIndex = 0;
+            this.ConnectServer_button.Text = "Connect Server";
+            this.ConnectServer_button.UseVisualStyleBackColor = true;
+            this.ConnectServer_button.Click += new System.EventHandler(this.ConnectServer_button_Click);
             // 
             // button2
             // 
@@ -103,7 +104,7 @@
             this.Controls.Add(this.open_connect_config);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.ConnectServer_button);
             this.Name = "SPChat";
             this.Text = "SPChat";
             this.ResumeLayout(false);
@@ -112,7 +113,7 @@
 
         #endregion
 
-        private Button button1;
+        private Button ConnectServer_button;
         private Button button2;
         private Button button3;
         private Button open_connect_config;
