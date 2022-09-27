@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace SPChat.Configuration.Forms
 {
@@ -64,12 +65,12 @@ namespace SPChat.Configuration.Forms
         }
 
 
-        private void ComboBox_color_selected(object sender, EventArgs e)
+     
+        private void ColorComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            this.rgb_input.Text = this.ColorComboBox.SelectedItem.ToString();
+            Configuration.ConfigManipulator.ConnectionConf_ChangeConfig(ConfigManipulator.ConnectionConfPools.ClientChatColor, this.rgb_input.Text);
         }
-
-
 
         private void rgb_input_remove_placeholder(object sender, EventArgs e)
         {
@@ -81,14 +82,15 @@ namespace SPChat.Configuration.Forms
 
         }
 
-       private void Choose_color_button(object sender,EventArgs e)
+        private void Choose_color_button(object sender, EventArgs e)
         {
-            this.colorDialog1.ShowDialog();          
+            this.colorDialog1.ShowDialog();
             Color selected = colorDialog1.Color;
             this.rgb_input.Text = "ARGB - " + selected.A + ";" + selected.R + ";" + selected.G + ";" + selected.B;
-            Configuration.ConfigManipulator.Open_config(ConfigManipulator.Config.connection);
+            Configuration.ConfigManipulator.ConnectionConf_ChangeConfig(ConfigManipulator.ConnectionConfPools.ClientChatColor,this.rgb_input.Text);
+
         }
 
-
+    
     }
 }

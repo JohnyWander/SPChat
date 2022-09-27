@@ -34,6 +34,8 @@
             this.rgb_input = new System.Windows.Forms.TextBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.ChooseColor_button = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ColorComboBox
@@ -50,7 +52,7 @@
             this.ColorComboBox.Name = "ColorComboBox";
             this.ColorComboBox.Size = new System.Drawing.Size(121, 23);
             this.ColorComboBox.TabIndex = 0;
-            this.ColorComboBox.SelectedIndexChanged += this.ComboBox_color_selected;
+            this.ColorComboBox.SelectedIndexChanged += new System.EventHandler(this.ColorComboBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -77,7 +79,7 @@
             // rgb_input
             // 
             this.rgb_input.Enabled = false;
-            this.rgb_input.Location = new System.Drawing.Point(12, 227);
+            this.rgb_input.Location = new System.Drawing.Point(-90, 216);
             this.rgb_input.Name = "rgb_input";
             this.rgb_input.Size = new System.Drawing.Size(100, 23);
             this.rgb_input.TabIndex = 3;
@@ -97,19 +99,39 @@
             this.ChooseColor_button.Visible = false;
             this.ChooseColor_button.Click += new System.EventHandler(this.Choose_color_button);
             // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Black;
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label2.Location = new System.Drawing.Point(0, 78);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(330, 2);
+            this.label2.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(21, 91);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 15);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "label3";
+            // 
             // SPCHAT_connect_conf_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(111)))), ((int)(((byte)(111)))));
             this.ClientSize = new System.Drawing.Size(319, 251);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.ChooseColor_button);
             this.Controls.Add(this.rgb_input);
             this.Controls.Add(this.ColorMode);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ColorComboBox);
             this.Name = "SPCHAT_connect_conf_form";
-            this.Text = "Form1";
+            this.Text = "SPChat";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -123,5 +145,7 @@
         private TextBox rgb_input;
         private ColorDialog colorDialog1;
         private Button ChooseColor_button;
+        private Label label2;
+        private Label label3;
     }
 }
