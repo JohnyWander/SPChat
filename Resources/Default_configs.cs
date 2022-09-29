@@ -161,6 +161,12 @@ namespace SPChat.Resources
                 Clients_tree.AppendChild(whitelist);
                 whitelist.AppendChild(wl);
 
+            /// banned ips
+                XmlElement bannedlist = doc.CreateElement(string.Empty, "BannedIPs", string.Empty);
+                XmlText banned = doc.CreateTextNode("0.1.2.3,0.1.2.4-0.1.2.255");
+                Clients_tree.AppendChild(bannedlist);
+                bannedlist.AppendChild(banned);
+
             doc.Save("Config\\server.conf");
             doc = null; 
         }

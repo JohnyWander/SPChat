@@ -17,8 +17,8 @@ namespace SPChat
            Configuration.Forms.SPCHAT_connect_conf_form connect_form = new Configuration.Forms.SPCHAT_connect_conf_form();
 
            // form2.StartPosition = FormStartPosition.Manual; // TODO
-          //  form2.Left = 500;
-          //  form2.Top = 500;
+           //  form2.Left = 500;
+           //  form2.Top = 500;
 
             connect_form.ShowDialog();
         }
@@ -28,10 +28,17 @@ namespace SPChat
         private void ConnectServer_button_Click(object sender, EventArgs e)
         {
             ConnectionFunc.Forms.ConnectionForm ConnectionForm = new ConnectionFunc.Forms.ConnectionForm();
-            ConnectionForm.ShowDialog();
+            ConnectionForm.Show();
         }
 
+        private void Host_button_Click(object sender, EventArgs e)
+        {
+            HostFunc.Forms.chat chatform = new HostFunc.Forms.chat();
+            //chatform.ShowDialog();
+            chatform.Show();
 
+        }
 
+     
     }
 }

@@ -16,5 +16,15 @@ namespace SPChat.ConnectionFunc.Forms
         {
             InitializeComponent();
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Connect_server_Click(object sender, EventArgs e)
+        {
+            Program.start_connection(this.IP.Text,this.port.Text);
+        }
     }
 }
