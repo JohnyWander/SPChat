@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Net;
 namespace SPChat.ConnectionFunc
 {
     internal class CONNECTION
@@ -25,7 +26,18 @@ namespace SPChat.ConnectionFunc
             if (Configuration.ConfigManipulator.ConnectionConf_GetConfig(Configuration.ConfigManipulator.ConnectionConfPools.ClientChatColor, out ClientChatColor)
             && (Configuration.ConfigManipulator.ConnectionConf_GetConfig(Configuration.ConfigManipulator.ConnectionConfPools.LoadChatMembersColors,out LoadChatMembersColors)))
             {
-                MessageBox.Show("GIT GOOD");
+                TcpClient client = new TcpClient();
+                
+
+                Task connect = client.ConnectAsync(IPAddress.Parse(ip_), Convert.ToInt32(port_));
+                connect.GetAwaiter().GetResult();
+
+                if (client.Connected)
+                {
+                    MessageBox.Show("Connection success");
+                }
+
+
             }
 
                    

@@ -24,6 +24,8 @@ namespace SPChat.ConnectionFunc.Forms
 
         private void Connect_server_Click(object sender, EventArgs e)
         {
+            Configuration.ConfigManipulator.ConnectionConf_ChangeConfig(Configuration.ConfigManipulator.ConnectionConfPools.IP, this.IP.Text);
+            Configuration.ConfigManipulator.ConnectionConf_ChangeConfig(Configuration.ConfigManipulator.ConnectionConfPools.Port, this.port.Text);
             Program.start_connection(this.IP.Text,this.port.Text);
         }
     }
