@@ -33,6 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.port = new System.Windows.Forms.TextBox();
             this.Connect_server = new System.Windows.Forms.Button();
+            this.Disconnect_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -50,10 +51,9 @@
             this.IP.Name = "IP";
             this.IP.Size = new System.Drawing.Size(100, 23);
             this.IP.TabIndex = 1;
-            string outtt;
-            Configuration.ConfigManipulator.ConnectionConf_GetConfig(Configuration.ConfigManipulator.ConnectionConfPools.IP, out outtt);
-            this.IP.Text = outtt;
-            
+            string ipText;
+            Configuration.ConfigManipulator.ConnectionConf_GetConfig(Configuration.ConfigManipulator.ConnectionConfPools.IP,out ipText);
+            this.IP.Text = ipText;
             // 
             // label2
             // 
@@ -71,9 +71,9 @@
             this.port.Name = "port";
             this.port.Size = new System.Drawing.Size(100, 23);
             this.port.TabIndex = 3;
-            string outttt;
-            Configuration.ConfigManipulator.ConnectionConf_GetConfig(Configuration.ConfigManipulator.ConnectionConfPools.Port, out outttt);
-            this.port.Text = outttt;
+            string portText;
+            Configuration.ConfigManipulator.ConnectionConf_GetConfig(Configuration.ConfigManipulator.ConnectionConfPools.Port, out portText);
+            this.port.Text = portText;
             // 
             // Connect_server
             // 
@@ -85,12 +85,24 @@
             this.Connect_server.UseVisualStyleBackColor = true;
             this.Connect_server.Click += new System.EventHandler(this.Connect_server_Click);
             // 
+            // Disconnect_button
+            // 
+            this.Disconnect_button.Enabled = false;
+            this.Disconnect_button.Location = new System.Drawing.Point(105, 117);
+            this.Disconnect_button.Name = "Disconnect_button";
+            this.Disconnect_button.Size = new System.Drawing.Size(75, 23);
+            this.Disconnect_button.TabIndex = 5;
+            this.Disconnect_button.Text = "Disconnect";
+            this.Disconnect_button.UseVisualStyleBackColor = true;
+            this.Disconnect_button.Click += new System.EventHandler(this.Disconnect_button_Click);
+            // 
             // ConnectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(111)))), ((int)(((byte)(111)))));
             this.ClientSize = new System.Drawing.Size(307, 275);
+            this.Controls.Add(this.Disconnect_button);
             this.Controls.Add(this.Connect_server);
             this.Controls.Add(this.port);
             this.Controls.Add(this.label2);
@@ -110,5 +122,6 @@
         private Label label2;
         private TextBox port;
         private Button Connect_server;
+        private Button Disconnect_button;
     }
 }

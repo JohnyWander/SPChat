@@ -12,6 +12,7 @@ namespace SPChat.ConnectionFunc.Forms
 {
     public partial class ConnectionForm : Form
     {
+        
         public ConnectionForm()
         {
             InitializeComponent();
@@ -26,7 +27,32 @@ namespace SPChat.ConnectionFunc.Forms
         {
             Configuration.ConfigManipulator.ConnectionConf_ChangeConfig(Configuration.ConfigManipulator.ConnectionConfPools.IP, this.IP.Text);
             Configuration.ConfigManipulator.ConnectionConf_ChangeConfig(Configuration.ConfigManipulator.ConnectionConfPools.Port, this.port.Text);
-            Program.start_connection(this.IP.Text,this.port.Text);
+            if (Program.start_connection(this.IP.Text, this.port.Text).GetAwaiter().GetResult()==true)
+            {
+                this.Disconnect_button.Enabled = true;
+                TextBox txtbox = new TextBox();
+                this.Controls.Add(txtbox);
+                txtbox.Location = new Point(200, 200);
+                txtbox.Text = "XD";
+            }else
+            {
+                this.Disconnect_button.Enabled = false;
+                MessageBox.Show("Connection failed");
+
+            }
+        }
+
+        private void Disconnect_button_Click(object sender, EventArgs e)
+        {
+           if(Program.Disconnect_delegate(this.IP.Text))
+            {
+                MessageBox.Show("Disconnected  Successfully");
+            }
+            else
+            {
+                MessageBox.Show(">??????????");
+            }
+
         }
     }
 }

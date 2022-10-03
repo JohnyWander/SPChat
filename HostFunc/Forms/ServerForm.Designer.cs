@@ -1,6 +1,6 @@
 ﻿namespace SPChat.HostFunc.Forms
 {
-    partial class chat
+    partial class ServerForm 
     {
         /// <summary>
         /// Required designer variable.
@@ -31,6 +31,7 @@
             this.start_server = new System.Windows.Forms.Button();
             this.ConnectedUsersLabelText = new System.Windows.Forms.Label();
             this.ConnectedUsersCounter = new System.Windows.Forms.Label();
+            this.StopButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // start_server
@@ -61,16 +62,28 @@
             this.ConnectedUsersCounter.TabIndex = 2;
             this.ConnectedUsersCounter.Text = "0";
             // 
-            // chat
+            // StopButton
+            // 
+            this.StopButton.Enabled = false;
+            this.StopButton.Location = new System.Drawing.Point(91, 260);
+            this.StopButton.Name = "StopButton";
+            this.StopButton.Size = new System.Drawing.Size(75, 23);
+            this.StopButton.TabIndex = 3;
+            this.StopButton.Text = "Stop Server";
+            this.StopButton.UseVisualStyleBackColor = true;
+            this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
+            // 
+            // ServerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(111)))), ((int)(((byte)(111)))));
             this.ClientSize = new System.Drawing.Size(268, 288);
+            this.Controls.Add(this.StopButton);
             this.Controls.Add(this.ConnectedUsersCounter);
             this.Controls.Add(this.ConnectedUsersLabelText);
             this.Controls.Add(this.start_server);
-            this.Name = "chat";
+            this.Name = "ServerForm";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.xd);
             this.Load += new System.EventHandler(this.chat_Load);
@@ -84,5 +97,6 @@
         private Button start_server;
         private Label ConnectedUsersLabelText;
         private Label ConnectedUsersCounter;
+        private Button StopButton;
     }
 }

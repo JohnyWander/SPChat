@@ -10,6 +10,8 @@ namespace SPChat.HostFunc
 {
     internal class HOST
     {
+        private Func<string, bool> set_countGUI;
+
         public CancellationTokenSource cancelConnectionsToken = new CancellationTokenSource();
         // network
         private string ip;
@@ -25,10 +27,11 @@ namespace SPChat.HostFunc
         private List<string> BannedIPs = new List<string>();
 
 
-
-        private IDictionary<string,HandleClient> clients_connected = new Dictionary<string,HandleClient>();
-        public HOST()
+        int clients_connected_count = 0;
+        private IDictionary<string, HandleClient> clients_connected  = new Dictionary<string, HandleClient>();
+        public HOST(out Predicate<string> StopServerDelegate,Func<string,bool> set_Conn_Count)
         {
+            set_countGUI = set_Conn_Count;
             if (Configuration.ConfigManipulator.HostConf_GetConfig(Configuration.ConfigManipulator.HostConfPools.ListenIP, out ip)
             && Configuration.ConfigManipulator.HostConf_GetConfig(Configuration.ConfigManipulator.HostConfPools.ListenPort, out port)
             && Configuration.ConfigManipulator.HostConf_GetConfig(Configuration.ConfigManipulator.HostConfPools.MaxRoomSize, out MaxRoomSize)
@@ -38,14 +41,23 @@ namespace SPChat.HostFunc
             {
                 int port_ = Convert.ToInt32(port);
 
+                TcpListener listener = new TcpListener(IPAddress.Parse(ip), Convert.ToInt32(port));
+
+                var listenertask = ServerListener(cancelConnectionsToken.Token, listener);
 
 
-                var listenertask = ServerListener(cancelConnectionsToken.Token, ip, port_);
+
+
+                StopServerDelegate = (ip) => { listener.Stop() ; return true; };
+
                     listenertask.GetAwaiter().GetResult();
 
-                
-               
 
+
+            }
+            else
+            {
+                StopServerDelegate = null;
             }
 
 
@@ -60,21 +72,29 @@ namespace SPChat.HostFunc
         }
 
         
-        public async Task ServerListener(CancellationToken cts,string ip,int port)
+        public async Task ServerListener(CancellationToken cts,TcpListener listener)
         {
-            TcpListener listener = new TcpListener(IPAddress.Parse(ip),port);
-
             
-            listener.Start(); 
-            while (!cts.IsCancellationRequested)
+            
+            
+            listener.Start();
+            while (!cts.IsCancellationRequested )
             {
-               
-                Socket client = await listener.AcceptSocketAsync();
-               string endpoint = client.RemoteEndPoint.ToString();
+                try
+                {
+                    Socket client = await listener.AcceptSocketAsync();
+                    string endpoint = client.RemoteEndPoint.ToString();
 
-                clients_connected.Add(endpoint, new HandleClient(client));
-
-
+                    clients_connected.Add(endpoint, new HandleClient(client));
+                    clients_connected_count++;
+                    set_countGUI(Convert.ToString(clients_connected_count));
+                    
+                    
+                }
+                catch(System.Net.Sockets.SocketException)
+                {
+                    return;
+                }
 
             }
 

@@ -2,6 +2,7 @@ namespace SPChat
 {
     public partial class SPChat : Form
     {
+        public HostFunc.Forms.ServerForm serverform;
         public SPChat()
         {
             InitializeComponent();
@@ -33,9 +34,9 @@ namespace SPChat
 
         private void Host_button_Click(object sender, EventArgs e)
         {
-            HostFunc.Forms.chat chatform = new HostFunc.Forms.chat();
+             serverform = new HostFunc.Forms.ServerForm();
             //chatform.ShowDialog();
-            chatform.Show();
+            serverform.Show();
 
         }
 
