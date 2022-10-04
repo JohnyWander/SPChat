@@ -59,12 +59,14 @@ namespace SPChat.ConnectionFunc
                 {
                      connect = client.ConnectAsync(IPAddress.Parse(ip_), Convert.ToInt32(port_));
                     connect.GetAwaiter().GetResult();
-
-                  
-                        MessageBox.Show("Connection success");
                         connection_ok = true;
-                 
-                       
+
+                    /// debug
+                   // string test = "oogabooga";
+                  //  byte[] mess = Encoding.UTF8.GetBytes(test);
+
+                    
+                  
 
                     
                 }
@@ -88,6 +90,10 @@ namespace SPChat.ConnectionFunc
                    
 
         }
+
+        
+
+
 
 
     }

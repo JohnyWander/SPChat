@@ -84,9 +84,10 @@ namespace SPChat.HostFunc
                 {
                     Socket client = await listener.AcceptSocketAsync();
                     string endpoint = client.RemoteEndPoint.ToString();
-
-                    clients_connected.Add(endpoint, new HandleClient(client));
                     clients_connected_count++;
+                    int new_count = clients_connected_count;
+                    clients_connected.Add(endpoint, new HandleClient(client, set_countGUI));
+                   
                     set_countGUI(Convert.ToString(clients_connected_count));
                     
                     
@@ -114,26 +115,41 @@ namespace SPChat.HostFunc
           private CancellationTokenSource cts = new CancellationTokenSource();  
   
 
-           public HandleClient(Socket socket)
+           public HandleClient(Socket socket, Func<string, bool> set_Conn_Count)
            {
             Client = socket;
-            
 
+            Task.Run(async () =>
+            {
+                //TaskCompletionSource tcs = new TaskCompletionSource<bool>();
+
+
+
+
+
+                byte[] buffer = new byte[1024];
+                Task<int> result = Client.ReceiveAsync(buffer,SocketFlags.None);
+                //await Client.ReceiveAsync(args);
+                await result;
+
+                
+
+                string received = Encoding.UTF8.GetString(buffer);
+                if (received == null&&!Client.Connected) 
+                {
+                    
+                    MessageBox.Show("CONNECTION CLOSED");
+                }
+
+
+            });
             
 
             
 
 
            }
-        private async Task ClientTask()
-        {
-
-
-
-
-
-
-        }
+   
 
 
         }

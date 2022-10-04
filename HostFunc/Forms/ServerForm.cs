@@ -7,30 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Threading.Channels;
 namespace SPChat.HostFunc.Forms
 {
     public partial class ServerForm : Form
     {
         public Func<string,bool> insert_connection_count;
 
+        Channel<KeyValuePair<Func<string,bool>,string>> GuiActionQueue = Channel.CreateUnbounded<KeyValuePair<Func<string,bool>,string>>();
 
-
+      
         public ServerForm()
         {
             InitializeComponent();
-            insert_connection_count = (string s) =>
-            {
-                try
-                {
-                    this.ConnectedUsersCounter.Text = s;
-                    return true;
-                }
-                catch(Exception e)
-                {
-                    return false;
-                }
-            };
+
+
+
+
         }
 
         private void chat_Load(object sender, EventArgs e)
@@ -45,7 +38,25 @@ namespace SPChat.HostFunc.Forms
 
         private void start_server_Click(object sender, EventArgs e)
         {
-            
+            insert_connection_count = (string s) =>
+            {
+                try
+                {
+                    Action OwnerThreadLaunch = () =>
+                    {
+                        this.ConnectedUsersCounter.Text = s;
+                    };
+                    this.ConnectedUsersCounter.Invoke(OwnerThreadLaunch); 
+
+                    return true;
+                }catch(Exception e)
+                {
+                    return false;
+                }
+              
+              
+                
+            };
 
             if (Program.start_server(this.insert_connection_count))
             {
@@ -62,5 +73,7 @@ namespace SPChat.HostFunc.Forms
                 StopButton.Enabled = false;
             }
         }
+
+      
     }
 }
