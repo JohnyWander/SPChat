@@ -39,13 +39,20 @@ namespace SPChat.HostFunc
             && Configuration.ConfigManipulator.HostConf_GetConfig(Configuration.ConfigManipulator.HostConfPools.Whitelist, out UseWhiteList)
             && Configuration.ConfigManipulator.HostConf_GetConfig(Configuration.ConfigManipulator.HostConfPools.BannedIPs,out Banned))
             {
+
+
+
+
+
+
+
                 int port_ = Convert.ToInt32(port);
 
                 TcpListener listener = new TcpListener(IPAddress.Parse(ip), Convert.ToInt32(port));
 
                 var listenertask = ServerListener(cancelConnectionsToken.Token, listener);
 
-
+                
 
 
                 StopServerDelegate = (ip) => { listener.Stop() ; return true; };
@@ -127,10 +134,17 @@ namespace SPChat.HostFunc
 
 
 
-                byte[] buffer = new byte[1024];
+                byte[] buffer = new byte[32];                                      // initial listen for determining connection scheme
                 Task<int> result = Client.ReceiveAsync(buffer,SocketFlags.None);
                 //await Client.ReceiveAsync(args);
                 await result;
+
+                int ConnectionSchemeSwitch = BitConverter.ToInt32(buffer, 0);
+                MessageBox.Show(Convert.ToString(ConnectionSchemeSwitch));
+
+
+
+
 
                 
 
@@ -140,6 +154,10 @@ namespace SPChat.HostFunc
                     
                     MessageBox.Show("CONNECTION CLOSED");
                 }
+
+
+
+
 
 
             });

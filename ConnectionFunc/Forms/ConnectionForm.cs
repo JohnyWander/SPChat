@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SPChat.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,7 +28,16 @@ namespace SPChat.ConnectionFunc.Forms
         {
             Configuration.ConfigManipulator.ConnectionConf_ChangeConfig(Configuration.ConfigManipulator.ConnectionConfPools.IP, this.IP.Text);
             Configuration.ConfigManipulator.ConnectionConf_ChangeConfig(Configuration.ConfigManipulator.ConnectionConfPools.Port, this.port.Text);
-            if (Program.start_connection(this.IP.Text, this.port.Text).GetAwaiter().GetResult()==true)
+
+            string p;
+            Configuration.ConfigManipulator.ConnectionConf_GetConfig(Configuration.ConfigManipulator.ConnectionConfPools.ConnectionScheme, out p); ;
+
+            char[] withoutspaces = p.ToCharArray().Where(p => !Char.IsWhiteSpace(p)).ToArray();
+            string withoutspaces_string = new string(withoutspaces);
+
+            Common.ConnectionSchemes.schemes selected = (ConnectionSchemes.schemes)Enum.Parse(typeof(ConnectionSchemes.schemes), withoutspaces);
+
+            if (Program.start_connection(this.IP.Text, this.port.Text,selected).GetAwaiter().GetResult()==true)
             {
                 this.Disconnect_button.Enabled = true;
                 TextBox txtbox = new TextBox();

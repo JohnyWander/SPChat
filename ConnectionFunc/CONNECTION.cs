@@ -12,7 +12,7 @@ namespace SPChat.ConnectionFunc
 {
     internal class CONNECTION
     {
-     
+    
      
         // network
         private string ip;
@@ -24,7 +24,7 @@ namespace SPChat.ConnectionFunc
 
         public bool connection_ok = false;
         public Task connect;
-        public CONNECTION(out Predicate<string> Disconnect_delegate,string ip_="127.0.0.1",string port_="3333")
+        public CONNECTION(out Predicate<string> Disconnect_delegate, Common.ConnectionSchemes.schemes ConnectionScheme, string ip_="127.0.0.1",string port_="3333")
         {
           
             ip = ip_;
@@ -61,9 +61,28 @@ namespace SPChat.ConnectionFunc
                     connect.GetAwaiter().GetResult();
                         connection_ok = true;
 
-                    /// debug
-                   // string test = "oogabooga";
-                  //  byte[] mess = Encoding.UTF8.GetBytes(test);
+                   NetworkStream ns =  client.GetStream();                                   // initial send - scheme negotiation
+
+
+                    int x = (int)ConnectionScheme;
+                    
+
+                    MessageBox.Show(Convert.ToString(x));
+                    //ns.WriteAsync();
+
+
+                    switch (x)
+                    {
+                        case 0:
+                            MessageBox.Show("Using No encryption scheme");
+                        
+                            
+                        break;
+                    }
+
+
+
+
 
                     
                   
@@ -73,7 +92,7 @@ namespace SPChat.ConnectionFunc
                 catch(Exception ex)
                 {
                     Disconnect_delegate = (ip_) => { MessageBox.Show(ex.Message);return false; };
-                    MessageBox.Show("Connection failed");
+                    MessageBox.Show("Connection failed: " + ex.Message);
                     connection_ok = false;
 
                 }

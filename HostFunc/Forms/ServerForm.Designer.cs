@@ -85,7 +85,7 @@
             this.Controls.Add(this.start_server);
             this.Name = "ServerForm";
             this.Text = "Form1";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.xd);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnCloseHostForm);
             this.Load += new System.EventHandler(this.chat_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

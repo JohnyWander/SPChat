@@ -44,13 +44,13 @@ namespace SPChat
 
     
 
-    public static async Task<bool> start_connection(string ip, string port )
+    public static async Task<bool> start_connection(string ip, string port,Common.ConnectionSchemes.schemes ConnectionScheme )
         {
 
 
 
 
-            ConnectionFunc.CONNECTION connection  = new ConnectionFunc.CONNECTION(out Disconnect_delegate, ip, port);
+            ConnectionFunc.CONNECTION connection  = new ConnectionFunc.CONNECTION(out Disconnect_delegate, ConnectionScheme, ip, port);
 
             if (connection.connection_ok)
             {

@@ -36,6 +36,7 @@
             this.ChooseColor_button = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.TypeOfConnection = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // ColorComboBox
@@ -113,9 +114,21 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(21, 91);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 15);
+            this.label3.Size = new System.Drawing.Size(108, 15);
             this.label3.TabIndex = 6;
-            this.label3.Text = "label3";
+            this.label3.Text = "Type of connection";
+            // 
+            // TypeOfConnection
+            // 
+            this.TypeOfConnection.FormattingEnabled = true;
+            this.TypeOfConnection.Items.AddRange(new object[] {
+            "No Encryption",
+            "RSA Without Diffie Hellman"});
+            this.TypeOfConnection.Location = new System.Drawing.Point(21, 109);
+            this.TypeOfConnection.Name = "TypeOfConnection";
+            this.TypeOfConnection.Size = new System.Drawing.Size(158, 23);
+            this.TypeOfConnection.TabIndex = 7;
+            this.TypeOfConnection.SelectedIndexChanged += new System.EventHandler(this.TypeOfConnection_SelectedIndexChanged);
             // 
             // SPCHAT_connect_conf_form
             // 
@@ -123,6 +136,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(111)))), ((int)(((byte)(111)))));
             this.ClientSize = new System.Drawing.Size(319, 251);
+            this.Controls.Add(this.TypeOfConnection);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.ChooseColor_button);
@@ -147,5 +161,6 @@
         private Button ChooseColor_button;
         private Label label2;
         private Label label3;
+        private ComboBox TypeOfConnection;
     }
 }

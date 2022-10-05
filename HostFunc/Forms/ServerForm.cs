@@ -31,10 +31,7 @@ namespace SPChat.HostFunc.Forms
 
         }
 
-        private void xd (object sender,EventArgs e)
-        {
-            MessageBox.Show("XDDD");
-        }
+  
 
         private void start_server_Click(object sender, EventArgs e)
         {
@@ -74,6 +71,12 @@ namespace SPChat.HostFunc.Forms
             }
         }
 
-      
+        private void OnCloseHostForm(object sender,EventArgs e)
+        {
+            Program.StopServer_delegate("X");
+        }
+
+
+
     }
 }

@@ -17,6 +17,10 @@ namespace SPChat.Configuration.Forms
         public SPCHAT_connect_conf_form()
         {
             InitializeComponent();
+            string forset;
+            ConfigManipulator.ConnectionConf_GetConfig(ConfigManipulator.ConnectionConfPools.ConnectionScheme, out forset);
+            this.TypeOfConnection.SelectedIndex = this.TypeOfConnection.Items.IndexOf(forset);
+            MessageBox.Show(forset);
         }
 
        public void changed_ColorMode(object sender,object args)
@@ -91,6 +95,9 @@ namespace SPChat.Configuration.Forms
 
         }
 
-    
+        private void TypeOfConnection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ConfigManipulator.ConnectionConf_ChangeConfig(ConfigManipulator.ConnectionConfPools.ConnectionScheme,this.TypeOfConnection.SelectedItem.ToString());
+        }
     }
 }

@@ -60,6 +60,11 @@ namespace SPChat.Resources
 
             //XmlElement color
             
+            /////////// Use scheme
+               XmlElement scheme = doc.CreateElement(string.Empty,"ConnectionScheme",string.Empty);
+               XmlText sch = doc.CreateTextNode("No Encryption");
+               client_tree.AppendChild(scheme);
+               scheme.AppendChild(sch);
 
             doc.Save( "Config\\connection.conf");
             doc = null;
