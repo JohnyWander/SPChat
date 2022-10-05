@@ -38,16 +38,17 @@ namespace SPChat.ConnectionFunc
 
                 Disconnect_delegate = (ip_) =>
                 {
-
+                    
                     if (client.Connected)
                     {
                         client.Close();
+                        client.Dispose();
                         MessageBox.Show("delegate ran");
                         return true;
                     }
                     else
                     {
-                        MessageBox.Show("delegate ran");
+                        MessageBox.Show("delegate failed");
                         return false;
                     }
                        

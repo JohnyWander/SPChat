@@ -40,6 +40,7 @@ namespace SPChat.ConnectionFunc.Forms
             if (Program.start_connection(this.IP.Text, this.port.Text,selected).GetAwaiter().GetResult()==true)
             {
                 this.Disconnect_button.Enabled = true;
+                this.Connect_server.Enabled = false;
                 TextBox txtbox = new TextBox();
                 this.Controls.Add(txtbox);
                 txtbox.Location = new Point(200, 200);
@@ -57,10 +58,12 @@ namespace SPChat.ConnectionFunc.Forms
            if(Program.Disconnect_delegate(this.IP.Text))
             {
                 MessageBox.Show("Disconnected  Successfully");
+                this.Disconnect_button.Enabled = false;
+                this.Connect_server.Enabled = true;
             }
             else
             {
-                MessageBox.Show(">??????????");
+                MessageBox.Show(">NO CONNECTION");
             }
 
         }

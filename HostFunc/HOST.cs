@@ -27,10 +27,33 @@ namespace SPChat.HostFunc
         private List<string> BannedIPs = new List<string>();
 
 
-        int clients_connected_count = 0;
+
+
+       public int clients_connected_count = 0;
+
+        public Func<bool,int> setClientsCount;
+
         private IDictionary<string, HandleClient> clients_connected  = new Dictionary<string, HandleClient>();
         public HOST(out Predicate<string> StopServerDelegate,Func<string,bool> set_Conn_Count)
         {
+
+            setClientsCount = (bool x) =>
+            {
+                if (x)
+                {
+                    clients_connected_count++;
+                    return clients_connected_count;
+                }
+                else
+                {
+                    clients_connected_count--;
+                    return clients_connected_count;
+                }
+            };
+
+
+
+
             set_countGUI = set_Conn_Count;
             if (Configuration.ConfigManipulator.HostConf_GetConfig(Configuration.ConfigManipulator.HostConfPools.ListenIP, out ip)
             && Configuration.ConfigManipulator.HostConf_GetConfig(Configuration.ConfigManipulator.HostConfPools.ListenPort, out port)
@@ -50,7 +73,7 @@ namespace SPChat.HostFunc
 
                 TcpListener listener = new TcpListener(IPAddress.Parse(ip), Convert.ToInt32(port));
 
-                var listenertask = ServerListener(cancelConnectionsToken.Token, listener);
+                var listenertask = ServerListener(cancelConnectionsToken.Token, listener,setClientsCount);
 
                 
 
@@ -79,11 +102,12 @@ namespace SPChat.HostFunc
         }
 
         
-        public async Task ServerListener(CancellationToken cts,TcpListener listener)
+        public async Task ServerListener(CancellationToken cts,TcpListener listener, Func<bool,int> setClientsCount)
         {
-            
-            
-            
+
+
+
+
             listener.Start();
             while (!cts.IsCancellationRequested )
             {
@@ -93,7 +117,7 @@ namespace SPChat.HostFunc
                     string endpoint = client.RemoteEndPoint.ToString();
                     clients_connected_count++;
                     int new_count = clients_connected_count;
-                    clients_connected.Add(endpoint, new HandleClient(client, set_countGUI));
+                    clients_connected.Add(endpoint, new HandleClient(client, set_countGUI,setClientsCount));
                    
                     set_countGUI(Convert.ToString(clients_connected_count));
                     
@@ -122,7 +146,7 @@ namespace SPChat.HostFunc
           private CancellationTokenSource cts = new CancellationTokenSource();  
   
 
-           public HandleClient(Socket socket, Func<string, bool> set_Conn_Count)
+           public HandleClient(Socket socket, Func<string, bool> set_Conn_Count_GUI,Func<bool,int>set_HOST_conn_count)
            {
             Client = socket;
 
@@ -130,36 +154,47 @@ namespace SPChat.HostFunc
             {
                 //TaskCompletionSource tcs = new TaskCompletionSource<bool>();
 
-
-
-
-
-                byte[] buffer = new byte[32];                                      // initial listen for determining connection scheme
-                Task<int> result = Client.ReceiveAsync(buffer,SocketFlags.None);
-                //await Client.ReceiveAsync(args);
-                await result;
-
-                int ConnectionSchemeSwitch = BitConverter.ToInt32(buffer, 0);
-                MessageBox.Show(Convert.ToString(ConnectionSchemeSwitch));
-
-
-
-
-
-                
-
-                string received = Encoding.UTF8.GetString(buffer);
-                if (received == null&&!Client.Connected) 
+                while (Client.Connected)
                 {
+
+
+                    byte[] buffer = new byte[32];                                      // initial listen for determining connection scheme
+                    Task<int> result = Client.ReceiveAsync(buffer, SocketFlags.None);
+                    //await Client.ReceiveAsync(args);
+                    await result;
+
+                    int ConnectionSchemeSwitch = BitConverter.ToInt32(buffer, 0);
+                    //  MessageBox.Show(Convert.ToString(ConnectionSchemeSwitch));
+
+                    Task<int> result2 = Client.ReceiveAsync(buffer, SocketFlags.None);// debug - to remove
+
                     
-                    MessageBox.Show("CONNECTION CLOSED");
+                    
+                    await result2;
+
+                    if (result2.Result == 0)
+                    {
+                        set_Conn_Count_GUI(Convert.ToString(set_HOST_conn_count(false)));
+                        break;
+
+                    }
+
+
+
+                 //   if (received==null)
+                  //  {
+                   //     set_Conn_Count_GUI(Convert.ToString(set_HOST_conn_count(false)));
+
+                   //     MessageBox.Show("CONNECTION CLOSED");
+                   //     break;
+
+                   // }
+
+                    
                 }
 
 
-
-
-
-
+                
             });
             
 
