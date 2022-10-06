@@ -72,7 +72,7 @@ namespace SPChat.HostFunc
                 int port_ = Convert.ToInt32(port);
 
                 TcpListener listener = new TcpListener(IPAddress.Parse(ip), Convert.ToInt32(port));
-
+                if (listener.LocalEndpoint != null) { Program.AddServerLogActionDelegate($"Successfully started server on:{listener.LocalEndpoint}"); }
                 var listenertask = ServerListener(cancelConnectionsToken.Token, listener,setClientsCount);
 
                 
@@ -114,7 +114,10 @@ namespace SPChat.HostFunc
                 try
                 {
                     Socket client = await listener.AcceptSocketAsync();
+                    
                     string endpoint = client.RemoteEndPoint.ToString();
+
+                    Program.AddServerLogActionDelegate($"Client connected from: {endpoint}");
                     clients_connected_count++;
                     int new_count = clients_connected_count;
                     clients_connected.Add(endpoint, new HandleClient(client, set_countGUI,setClientsCount));
@@ -166,29 +169,25 @@ namespace SPChat.HostFunc
                     int ConnectionSchemeSwitch = BitConverter.ToInt32(buffer, 0);
                     //  MessageBox.Show(Convert.ToString(ConnectionSchemeSwitch));
 
-                    Task<int> result2 = Client.ReceiveAsync(buffer, SocketFlags.None);// debug - to remove
-
+                  
                     
                     
-                    await result2;
 
-                    if (result2.Result == 0)
-                    {
+
+
+
+              
+
+
+
+                    if (result.Result==0)
+                   {
                         set_Conn_Count_GUI(Convert.ToString(set_HOST_conn_count(false)));
+
+                        MessageBox.Show("CONNECTION CLOSED");
                         break;
 
                     }
-
-
-
-                 //   if (received==null)
-                  //  {
-                   //     set_Conn_Count_GUI(Convert.ToString(set_HOST_conn_count(false)));
-
-                   //     MessageBox.Show("CONNECTION CLOSED");
-                   //     break;
-
-                   // }
 
                     
                 }

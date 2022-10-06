@@ -20,7 +20,18 @@ namespace SPChat.HostFunc.Forms
         public ServerForm()
         {
             InitializeComponent();
+            Program.AddServerLogActionDelegate = (string log) =>
+            {
+                DateTime now = DateTime.Now;
+                string date = $"[{now.Hour}:{now.Minute}:{now.Second}]";
+                LogBox.Invoke(() =>
+                {
+                    if (LogBox.TextLength == 0) { LogBox.AppendText(date + " " + log); }
+                    else { LogBox.AppendText("\n" + date + " " + log); }
+                
+                });
 
+            };
 
 
 
@@ -51,7 +62,9 @@ namespace SPChat.HostFunc.Forms
                     return false;
                 }
               
-              
+
+
+
                 
             };
 
@@ -59,6 +72,7 @@ namespace SPChat.HostFunc.Forms
             {
                 start_server.Enabled = false;
                 StopButton.Enabled = true;
+                
             }
         }
 
@@ -76,7 +90,14 @@ namespace SPChat.HostFunc.Forms
             Program.StopServer_delegate("X");
         }
 
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+         
+        }
 
+        private void ConnectedUsersCounter_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

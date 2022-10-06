@@ -7,10 +7,17 @@ using System.Net;
 using System.Net.Sockets;
 namespace SPChat.HostFunc
 {
-    internal class HostTasksNoEncyptionServer : ConnectionWithoutEncryptionServer
+    internal class HostTasks : INoEncryption
     {
     
-        public override async Task<int> NegotiateBuffer(TcpListener listener) // 
+        public async Task<int>  SteerAsync(Socket socket)
+        {
+
+            return 0;
+        }
+
+
+        public  async Task<int> NegotiateBufferAsync(Socket socket) // buffer size negotiation
         {
 
 

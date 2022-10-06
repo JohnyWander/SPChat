@@ -74,7 +74,7 @@ namespace SPChat.ConnectionFunc
 
                     switch (x)
                     {
-                        case 0:
+                        case 1:
                             MessageBox.Show("Using No encryption scheme");
                         
                             

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SPChat.ConnectionFunc
 {
-    internal class Class1
+    internal class LaunchNoEncyptionMode
     {
     }
 }

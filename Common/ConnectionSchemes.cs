@@ -11,8 +11,8 @@ namespace SPChat.Common
 
         public enum schemes
         {
-            NoEncryption =0,
-            RSAWithoutDiffieHellman=1
+            NoEncryption =1,
+            RSAWithoutDiffieHellman=2
         }
     }
 }

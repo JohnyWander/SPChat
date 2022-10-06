@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SPChat.HostFunc
 {
-    internal abstract class ConnectionWithoutEncryptionServer
+    internal interface INoEncryption
     {
-
-        public abstract Task<int> NegotiateBuffer(TcpListener listener);
+        public Task<int> SteerAsync(Socket socket);
+        public  Task<int> NegotiateBufferAsync(Socket socket);// buffer size negotiation
     }
 }

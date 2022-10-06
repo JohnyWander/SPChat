@@ -23,6 +23,12 @@ namespace SPChat
 
         public static Predicate<string> StopServer_delegate;
 
+
+        //Host form delegates
+        public static Action<string> AddServerLogActionDelegate;
+
+
+
     public static bool start_server(Func<string,bool> InsertAmountDelegate)
         {
             try
