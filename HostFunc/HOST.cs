@@ -169,8 +169,15 @@ namespace SPChat.HostFunc
                     int ConnectionSchemeSwitch = BitConverter.ToInt32(buffer, 0);
                     //  MessageBox.Show(Convert.ToString(ConnectionSchemeSwitch));
 
-                  
-                    
+
+                    switch (result.Result)
+                    {
+                        case 1:
+                        LaunchNoEncryptionModeServer NoEncryptionMode = new LaunchNoEncryptionModeServer();
+                        break;
+
+
+                    }
                     
 
 
@@ -201,10 +208,12 @@ namespace SPChat.HostFunc
 
 
            }
+
+
+
+    }
+
    
-
-
-        }
 
 
 }

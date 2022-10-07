@@ -8,5 +8,15 @@ namespace SPChat.HostFunc
 {
     internal class LaunchNoEncryptionModeServer
     {
+
+       // INoEncryption TASKS;l
+
+
+        public void run()
+        {
+
+        }
+
+
     }
 }
