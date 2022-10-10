@@ -34,7 +34,7 @@ namespace SPChat.HostFunc
         public Func<bool,int> setClientsCount;
 
         private IDictionary<string, HandleClient> clients_connected  = new Dictionary<string, HandleClient>();
-        public HOST(out Predicate<string> StopServerDelegate,Func<string,bool> set_Conn_Count)
+        public HOST(out Predicate<string> StopServerDelegate,Func<string,bool> set_Conn_Count_GUI)
         {
 
             setClientsCount = (bool x) =>
@@ -54,7 +54,7 @@ namespace SPChat.HostFunc
 
 
 
-            set_countGUI = set_Conn_Count;
+            set_countGUI = set_Conn_Count_GUI;
             if (Configuration.ConfigManipulator.HostConf_GetConfig(Configuration.ConfigManipulator.HostConfPools.ListenIP, out ip)
             && Configuration.ConfigManipulator.HostConf_GetConfig(Configuration.ConfigManipulator.HostConfPools.ListenPort, out port)
             && Configuration.ConfigManipulator.HostConf_GetConfig(Configuration.ConfigManipulator.HostConfPools.MaxRoomSize, out MaxRoomSize)
@@ -152,12 +152,13 @@ namespace SPChat.HostFunc
            public HandleClient(Socket socket, Func<string, bool> set_Conn_Count_GUI,Func<bool,int>set_HOST_conn_count)
            {
             Client = socket;
+            string username = null;
 
             Task.Run(async () =>
             {
                 //TaskCompletionSource tcs = new TaskCompletionSource<bool>();
 
-                while (Client.Connected)
+                while (true)
                 {
 
 
@@ -168,12 +169,14 @@ namespace SPChat.HostFunc
 
                     int ConnectionSchemeSwitch = BitConverter.ToInt32(buffer, 0);
                     //  MessageBox.Show(Convert.ToString(ConnectionSchemeSwitch));
+                    
 
-
-                    switch (result.Result)
+                    switch (ConnectionSchemeSwitch)
                     {
                         case 1:
-                        LaunchNoEncryptionModeServer NoEncryptionMode = new LaunchNoEncryptionModeServer();
+                            MessageBox.Show("server using scheme 1");
+                        LaunchNoEncryptionModeServer NoEncryptionMode = new LaunchNoEncryptionModeServer(Client,C);
+                            NoEncryptionMode.run();
                         break;
 
 
@@ -191,7 +194,9 @@ namespace SPChat.HostFunc
                    {
                         set_Conn_Count_GUI(Convert.ToString(set_HOST_conn_count(false)));
 
-                        MessageBox.Show("CONNECTION CLOSED");
+                        if (username == null||username=="") { Program.AddServerLogActionDelegate($"Client disconnected: {Client.RemoteEndPoint}"); }
+                        else { Program.AddServerLogActionDelegate($"Client disconnected:{username}"); }
+
                         break;
 
                     }

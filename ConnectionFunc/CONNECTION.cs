@@ -66,16 +66,17 @@ namespace SPChat.ConnectionFunc
 
 
                     int x = (int)ConnectionScheme;
-                    
+                    byte[] schemeByteMessege = BitConverter.GetBytes(x);
 
                     MessageBox.Show(Convert.ToString(x));
-                    //ns.WriteAsync();
+                    ns.Write(schemeByteMessege, 0, schemeByteMessege.Length);
 
 
                     switch (x)
                     {
                         case 1:
-                            MessageBox.Show("Using No encryption scheme");
+                            //   MessageBox.Show("Using No encryption scheme (client)");
+                            LaunchNoEncyptionModeClient noencryptionclient = new LaunchNoEncyptionModeClient(client);
                         
                             
                         break;

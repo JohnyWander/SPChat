@@ -7,9 +7,12 @@ using System.Net;
 using System.Net.Sockets;
 namespace SPChat.ConnectionFunc
 {
-    internal interface INoEncryption
+    internal interface INoEncryptionClient
     {
-        public Task<int> NegotiateBufferAsync(Socket client);
+        public Task<int> SteerAsync(TcpClient client);
+        public Task<int> NegotiateBufferAsync(TcpClient client);
 
+
+        public byte[] CreateBuffer(int length);
     }
 }
