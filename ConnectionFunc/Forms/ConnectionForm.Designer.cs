@@ -34,6 +34,7 @@
             this.port = new System.Windows.Forms.TextBox();
             this.Connect_server = new System.Windows.Forms.Button();
             this.Disconnect_button = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -51,9 +52,6 @@
             this.IP.Name = "IP";
             this.IP.Size = new System.Drawing.Size(100, 23);
             this.IP.TabIndex = 1;
-            string ipText;
-            Configuration.ConfigManipulator.ConnectionConf_GetConfig(Configuration.ConfigManipulator.ConnectionConfPools.IP,out ipText);
-            this.IP.Text = ipText;
             // 
             // label2
             // 
@@ -71,9 +69,6 @@
             this.port.Name = "port";
             this.port.Size = new System.Drawing.Size(100, 23);
             this.port.TabIndex = 3;
-            string portText;
-            Configuration.ConfigManipulator.ConnectionConf_GetConfig(Configuration.ConfigManipulator.ConnectionConfPools.Port, out portText);
-            this.port.Text = portText;
             // 
             // Connect_server
             // 
@@ -96,18 +91,28 @@
             this.Disconnect_button.UseVisualStyleBackColor = true;
             this.Disconnect_button.Click += new System.EventHandler(this.Disconnect_button_Click);
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(268, 12);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(353, 223);
+            this.richTextBox1.TabIndex = 6;
+            this.richTextBox1.Text = "";
+            // 
             // ConnectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(111)))), ((int)(((byte)(111)))));
-            this.ClientSize = new System.Drawing.Size(307, 275);
+            this.ClientSize = new System.Drawing.Size(266, 212);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.Disconnect_button);
             this.Controls.Add(this.Connect_server);
             this.Controls.Add(this.port);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.IP);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ConnectionForm";
             this.Text = "SPChat | Connection";
             this.ResumeLayout(false);
@@ -123,5 +128,6 @@
         private TextBox port;
         private Button Connect_server;
         private Button Disconnect_button;
+        private RichTextBox richTextBox1;
     }
 }

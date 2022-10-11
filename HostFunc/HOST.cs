@@ -175,7 +175,7 @@ namespace SPChat.HostFunc
                     {
                         case 1:
                             MessageBox.Show("server using scheme 1");
-                        LaunchNoEncryptionModeServer NoEncryptionMode = new LaunchNoEncryptionModeServer(Client,C);
+                        LaunchNoEncryptionModeServer NoEncryptionMode = new LaunchNoEncryptionModeServer(Client,set_HOST_conn_count);
                             NoEncryptionMode.run();
                         break;
 

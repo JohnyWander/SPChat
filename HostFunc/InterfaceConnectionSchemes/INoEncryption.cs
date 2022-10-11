@@ -10,6 +10,6 @@ namespace SPChat.HostFunc
     internal interface INoEncryption
     {
         public Task<int> SteerAsync(Socket socket);
-        public  Task<int> NegotiateBufferAsync(Socket socket);// buffer size negotiation
+        public Task<Tuple<int,int>> NegotiateBufferAsync(Socket socket);// buffer size negotiation
     }
 }

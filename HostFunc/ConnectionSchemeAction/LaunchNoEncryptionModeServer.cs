@@ -16,6 +16,7 @@ namespace SPChat.HostFunc
         public LaunchNoEncryptionModeServer(Socket Client_,Func<bool,int> _ConnectionCountChange)
         {
             Client = Client_;
+            ConnectionCountChange = _ConnectionCountChange;
         }
 
         bool Empty(int TaskResult)
@@ -37,7 +38,7 @@ namespace SPChat.HostFunc
             {
                     MessageBox.Show("Listening for steer");
                     int SteerSwitch =await HTask.SteerAsync(Client);
-                    if (Empty(SteerSwitch)) { ConnectionCountChange(); }
+                    if (Empty(SteerSwitch)) { break;}
                     
 
 

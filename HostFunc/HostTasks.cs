@@ -10,8 +10,9 @@ namespace SPChat.HostFunc
     internal class HostTasks : INoEncryption
     {
      
+    
         
-       
+      
         public async Task<int>  SteerAsync(Socket socket)
         {
 
@@ -19,20 +20,23 @@ namespace SPChat.HostFunc
             int BytesReceived = await socket.ReceiveAsync(buffer,SocketFlags.None);
 
 
-
+            
 
             return BitConverter.ToInt32(buffer, 0);
             
             
         }
 
-
-        public  async Task<int> NegotiateBufferAsync(Socket socket) // buffer size negotiation
+        // //////////////////// bytesrecieved,buffersize
+        public  async Task<Tuple<int,int>> NegotiateBufferAsync(Socket socket) // buffer size negotiation
         {
+            byte[] buffer = CreateBuffer(1024);
+            int bytesReceived = await socket.ReceiveAsync(buffer, SocketFlags.None);
 
 
+            
 
-            return 0;
+            return new Tuple<int,int>(bytesReceived,BitConverter.ToInt32(buffer));
         }
 
       

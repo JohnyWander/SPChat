@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +18,14 @@ namespace SPChat.ConnectionFunc.Forms
         public ConnectionForm()
         {
             InitializeComponent();
+            string ip, port;
+            Configuration.ConfigManipulator.ConnectionConf_GetConfig(Configuration.ConfigManipulator.ConnectionConfPools.IP, out ip);
+            Configuration.ConfigManipulator.ConnectionConf_GetConfig(Configuration.ConfigManipulator.ConnectionConfPools.Port, out port);
+            this.IP.Text = ip;
+            this.port.Text = port;
+
+            
+
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -39,12 +48,17 @@ namespace SPChat.ConnectionFunc.Forms
 
             if (Program.start_connection(this.IP.Text, this.port.Text,selected).GetAwaiter().GetResult()==true)
             {
+                this.FormClosing += new FormClosingEventHandler((object sender, FormClosingEventArgs e) => Program.Disconnect_delegate(null));
                 this.Disconnect_button.Enabled = true;
                 this.Connect_server.Enabled = false;
-                TextBox txtbox = new TextBox();
-                this.Controls.Add(txtbox);
-                txtbox.Location = new Point(200, 200);
-                txtbox.Text = "XD";
+
+                this.Width +=400;
+                this.Height += 100;
+
+               // TextBox txtbox = new TextBox();
+              //  this.Controls.Add(txtbox);
+               // txtbox.Location = new Point(200, 200);
+               // txtbox.Text = "XD";
             }else
             {
                 this.Disconnect_button.Enabled = false;
