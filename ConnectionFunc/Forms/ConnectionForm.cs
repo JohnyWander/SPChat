@@ -9,12 +9,14 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SPChat.ConnectionFunc.Forms
 {
     public partial class ConnectionForm : Form
     {
-        
+        private Color THISClientColor;
+        private string THISClientName;
         public ConnectionForm()
         {
             InitializeComponent();
@@ -24,10 +26,13 @@ namespace SPChat.ConnectionFunc.Forms
             this.IP.Text = ip;
             this.port.Text = port;
 
+            string colorstring;
             
 
-        }
+           // THISClientColor = Color.Fro
 
+        }
+        ///EVENTS -
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -52,8 +57,8 @@ namespace SPChat.ConnectionFunc.Forms
                 this.Disconnect_button.Enabled = true;
                 this.Connect_server.Enabled = false;
 
-                this.Width +=400;
-                this.Height += 100;
+                this.Width =282+400;
+                this.Height = 252+100;
 
                // TextBox txtbox = new TextBox();
               //  this.Controls.Add(txtbox);
@@ -81,5 +86,38 @@ namespace SPChat.ConnectionFunc.Forms
             }
 
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void InputTextEntered(object sender,KeyEventArgs button)
+        {
+
+            if (button.KeyCode == Keys.Enter)
+            {
+
+            }
+
+        }
+
+        /////////////////// Other
+        
+        private void InputChatMessege(Color MessegeColor, string Messege,string username)
+        {
+            string text = Common.Methods.DateLog() + " "+ username;
+
+
+            ChatBox.SelectionStart = ChatBox.TextLength;
+            ChatBox.SelectionLength = 0;
+
+            ChatBox.SelectionColor = MessegeColor;
+            ChatBox.AppendText(text);
+            ChatBox.SelectionColor = ChatBox.ForeColor;
+
+
+        }
+
     }
 }

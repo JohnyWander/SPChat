@@ -25,7 +25,9 @@ namespace SPChat.Configuration
             Port,
             ClientChatColor,
             LoadChatMembersColors,
-            ConnectionScheme
+            ConnectionScheme,
+            Username,
+
         }
         public enum HostConfPools
         {

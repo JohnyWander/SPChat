@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading.Channels;
 
 namespace SPChat.ConnectionFunc
 {
@@ -24,6 +25,9 @@ namespace SPChat.ConnectionFunc
 
         public bool connection_ok = false;
         public Task connect;
+
+        
+
         public CONNECTION(out Predicate<string> Disconnect_delegate, Common.ConnectionSchemes.schemes ConnectionScheme, string ip_="127.0.0.1",string port_="3333")
         {
           
@@ -38,7 +42,7 @@ namespace SPChat.ConnectionFunc
 
                 Disconnect_delegate = (ip_) =>
                 {
-                    
+
                     if (client.Connected)
                     {
                         client.Close();
@@ -51,11 +55,11 @@ namespace SPChat.ConnectionFunc
                         MessageBox.Show("delegate failed");
                         return false;
                     }
-                       
-                      
-                    
-                 
                 };
+
+
+
+
                 try
                 {
                      connect = client.ConnectAsync(IPAddress.Parse(ip_), Convert.ToInt32(port_));
@@ -79,6 +83,9 @@ namespace SPChat.ConnectionFunc
                             LaunchNoEncyptionModeClient noencryptionclient = new LaunchNoEncyptionModeClient(client);
                         
                             
+
+
+
                         break;
                     }
 

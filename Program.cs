@@ -16,17 +16,20 @@ namespace SPChat
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
         }
         /// <summary>
-        /// /// DELEGATES FOR GUI
+        /// /// DELEGATES  Client GUI
         /// </summary>
-        public static Predicate<string> Disconnect_delegate;
+        public static Predicate<string> Disconnect_delegate; // delegate for disconnecting client
         // public delegate bool Disconnect_delegate();
 
-        public static Predicate<string> StopServer_delegate;
+        public static Predicate<string> StopServer_delegate; // delegate for stopping server
 
+        public static Action<Color,string,string> InsertMessegeFromServer;
+        public static Action<string> SendMessege;
 
         //Host form delegates
         public static Action<string> AddServerLogActionDelegate;
 
+        
 
 
     public static bool start_server(Func<string,bool> InsertAmountDelegate)

@@ -41,8 +41,22 @@ namespace SPChat.Resources
             ///////////////////////////////////////////////////// NET TREE
 
             /////////////////////// Client tree
-            XmlElement client_tree = doc.CreateElement(string.Empty, "Client", string.Empty);
-            main_element.AppendChild(client_tree);
+            
+
+            
+
+
+                 XmlElement client_tree = doc.CreateElement(string.Empty, "Client", string.Empty);
+                 main_element.AppendChild(client_tree);
+                 
+
+
+
+            ///// Client Username
+                XmlElement username = doc.CreateElement(string.Empty, "Username", string.Empty);
+                XmlText usernametext = doc.CreateTextNode("user1");
+                client_tree.AppendChild(username);
+                username.AppendChild(usernametext);
 
             //////////// ClientChatColor
                 XmlElement ccc = doc.CreateElement(string.Empty, "ClientChatColor", string.Empty);
