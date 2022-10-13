@@ -26,10 +26,14 @@ namespace SPChat
         public static Action<Color,string,string> InsertMessegeFromServer;
         public static Action<string> SendMessege;
 
+        //-------------------------------------------------------------------------------//
         //Host form delegates
         public static Action<string> AddServerLogActionDelegate;
 
         
+
+        /// Instances
+
 
 
     public static bool start_server(Func<string,bool> InsertAmountDelegate)

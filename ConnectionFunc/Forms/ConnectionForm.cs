@@ -9,6 +9,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+
+using SPChat.Configuration; // prog itself
 using static System.Net.Mime.MediaTypeNames;
 
 namespace SPChat.ConnectionFunc.Forms
@@ -16,18 +19,40 @@ namespace SPChat.ConnectionFunc.Forms
     public partial class ConnectionForm : Form
     {
         private Color THISClientColor;
-        private string THISClientName;
+        private string THISClientUserName;
         public ConnectionForm()
         {
             InitializeComponent();
             string ip, port;
-            Configuration.ConfigManipulator.ConnectionConf_GetConfig(Configuration.ConfigManipulator.ConnectionConfPools.IP, out ip);
-            Configuration.ConfigManipulator.ConnectionConf_GetConfig(Configuration.ConfigManipulator.ConnectionConfPools.Port, out port);
+            ConfigManipulator.ConnectionConf_GetConfig(ConfigManipulator.ConnectionConfPools.IP, out ip);
+            ConfigManipulator.ConnectionConf_GetConfig(ConfigManipulator.ConnectionConfPools.Port, out port);
             this.IP.Text = ip;
             this.port.Text = port;
 
             string colorstring;
-            
+            ConfigManipulator.ConnectionConf_GetConfig(ConfigManipulator.ConnectionConfPools.ClientChatColor, out colorstring);
+
+            string Username;
+            ConfigManipulator.ConnectionConf_GetConfig(ConfigManipulator.ConnectionConfPools.Username, out Username);
+
+            if (colorstring.Contains("ARGB"))
+            {
+                string[] split = colorstring.Split("-");
+
+                string[] argb = split[1].Split(";");
+
+                THISClientColor = Color.FromArgb(
+                    Convert.ToInt32(argb[0]),
+                    Convert.ToInt32(argb[1]),
+                    Convert.ToInt32(argb[2]),
+                    Convert.ToInt32(argb[3]));
+            }
+            else
+            {
+                THISClientColor = Color.FromName(colorstring);         
+            }
+
+            this.THISClientUserName = Username;
 
            // THISClientColor = Color.Fro
 
@@ -60,6 +85,7 @@ namespace SPChat.ConnectionFunc.Forms
                 this.Width =282+400;
                 this.Height = 252+100;
 
+                this.InputBox.Enabled = true;
                // TextBox txtbox = new TextBox();
               //  this.Controls.Add(txtbox);
                // txtbox.Location = new Point(200, 200);
@@ -97,6 +123,13 @@ namespace SPChat.ConnectionFunc.Forms
 
             if (button.KeyCode == Keys.Enter)
             {
+                InputChatMessege(THISClientColor, InputBox.Text, THISClientUserName);
+                button.Handled = true;
+                button.SuppressKeyPress = true;
+
+            }
+            else
+            {
 
             }
 
@@ -106,7 +139,7 @@ namespace SPChat.ConnectionFunc.Forms
         
         private void InputChatMessege(Color MessegeColor, string Messege,string username)
         {
-            string text = Common.Methods.DateLog() + " "+ username;
+            string text = Common.Methods.DateLog() + " "+ username +":"+Messege+"\n";
 
 
             ChatBox.SelectionStart = ChatBox.TextLength;
@@ -114,10 +147,15 @@ namespace SPChat.ConnectionFunc.Forms
 
             ChatBox.SelectionColor = MessegeColor;
             ChatBox.AppendText(text);
+            
             ChatBox.SelectionColor = ChatBox.ForeColor;
 
 
         }
 
+        private void InputBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

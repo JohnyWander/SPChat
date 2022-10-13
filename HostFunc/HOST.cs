@@ -143,11 +143,14 @@ namespace SPChat.HostFunc
     }
 
 
-        public class HandleClient
+        internal class HandleClient
         {
           private Socket Client;
-          private CancellationTokenSource cts = new CancellationTokenSource();  
-  
+          private CancellationTokenSource cts = new CancellationTokenSource();
+
+          public LaunchNoEncryptionModeServer NoEncryptionModeServer;
+          
+
 
            public HandleClient(Socket socket, Func<string, bool> set_Conn_Count_GUI,Func<bool,int>set_HOST_conn_count)
            {
@@ -175,8 +178,12 @@ namespace SPChat.HostFunc
                     {
                         case 1:
                             MessageBox.Show("server using scheme 1");
-                        LaunchNoEncryptionModeServer NoEncryptionMode = new LaunchNoEncryptionModeServer(Client,set_HOST_conn_count);
-                            NoEncryptionMode.run();
+                        NoEncryptionModeServer = new LaunchNoEncryptionModeServer(Client,set_HOST_conn_count);
+
+                            NoEncryptionModeServer.run();
+
+                           
+
                         break;
 
 

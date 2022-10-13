@@ -103,11 +103,13 @@
             // 
             // InputBox
             // 
+            this.InputBox.Enabled = false;
             this.InputBox.Location = new System.Drawing.Point(268, 250);
             this.InputBox.Name = "InputBox";
             this.InputBox.Size = new System.Drawing.Size(353, 23);
             this.InputBox.TabIndex = 7;
-            this.InputBox.KeyDown += new KeyEventHandler(this.InputTextEntered);
+            this.InputBox.TextChanged += new System.EventHandler(this.InputBox_TextChanged);
+            this.InputBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputTextEntered);
             // 
             // ConnectionForm
             // 
