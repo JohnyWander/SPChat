@@ -7,12 +7,21 @@ using System.Net.Sockets;
 
 namespace SPChat.ConnectionFunc
 {
-    internal abstract class ConnectionTasks :  INoEncryptionClient
+    internal  class ConnectionTasks :  INoEncryptionClient
     {
-        public async Task<int> SteerAsync(TcpClient socket)
+        public enum TaskList
+        {
+            SteerAsync =1,
+            NegotiateBuffer=2
+
+        }
+
+
+
+        public async Task<int> SteerAsync(TcpClient socket,int JobID)
         {
            NetworkStream ns = socket.GetStream();
-        //   ns.WriteAsync()
+           await ns.WriteAsync(BitConverter.GetBytes(JobID));
 
 
 

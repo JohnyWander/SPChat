@@ -79,6 +79,7 @@ namespace SPChat.ConnectionFunc.Forms
             if (Program.start_connection(this.IP.Text, this.port.Text,selected).GetAwaiter().GetResult()==true)
             {
                 this.FormClosing += new FormClosingEventHandler((object sender, FormClosingEventArgs e) => Program.Disconnect_delegate(null));
+                Program.InsertMessegeFromServer = InputChatMessege;
                 this.Disconnect_button.Enabled = true;
                 this.Connect_server.Enabled = false;
 
@@ -139,7 +140,7 @@ namespace SPChat.ConnectionFunc.Forms
         
         private void InputChatMessege(Color MessegeColor, string Messege,string username)
         {
-            string text = Common.Methods.DateLog() + " "+ username +":"+Messege+"\n";
+            string text = Common.Methods.DateLog() + " "+ username +": "+Messege+"\n";
 
 
             ChatBox.SelectionStart = ChatBox.TextLength;

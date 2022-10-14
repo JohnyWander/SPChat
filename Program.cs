@@ -18,25 +18,21 @@ namespace SPChat
         /// <summary>
         /// /// DELEGATES  Client GUI
         /// </summary>
-        public static Predicate<string> Disconnect_delegate; // delegate for disconnecting client
-        // public delegate bool Disconnect_delegate();
-
-        public static Predicate<string> StopServer_delegate; // delegate for stopping server
-
+        public static Predicate<string> Disconnect_delegate; // delegate for disconnecting client        
         public static Action<Color,string,string> InsertMessegeFromServer;
-        public static Action<string> SendMessege;
+        public static Action<string> SendMessegeToServer;
 
         //-------------------------------------------------------------------------------//
         //Host form delegates
         public static Action<string> AddServerLogActionDelegate;
+        public static Predicate<string> StopServer_delegate; // delegate for stopping server
 
-        
 
         /// Instances
 
 
 
-    public static bool start_server(Func<string,bool> InsertAmountDelegate)
+        public static bool start_server(Func<string,bool> InsertAmountDelegate)
         {
             try
             {
