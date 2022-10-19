@@ -81,7 +81,7 @@ namespace SPChat.ConnectionFunc
                         case 1:
                             //   MessageBox.Show("Using No encryption scheme (client)");
                             LaunchNoEncyptionModeClient noencryptionclient = new LaunchNoEncyptionModeClient(client);
-                        
+                            noencryptionclient.run();
                             
 
 

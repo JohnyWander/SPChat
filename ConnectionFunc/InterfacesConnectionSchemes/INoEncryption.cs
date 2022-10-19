@@ -10,7 +10,7 @@ namespace SPChat.ConnectionFunc
     internal interface INoEncryptionClient
     {
         public Task<int> SteerAsync(TcpClient client,int JobID);
-        public Task<int> NegotiateBufferAsync(TcpClient client);
+        public Task<int> NegotiateBufferAsync(TcpClient client,int DesiredBufferLength);
 
 
         public byte[] CreateBuffer(int length);

@@ -125,6 +125,8 @@ namespace SPChat.ConnectionFunc.Forms
             if (button.KeyCode == Keys.Enter)
             {
                 InputChatMessege(THISClientColor, InputBox.Text, THISClientUserName);
+                Program.SendMessegeToServer(this.THISClientUserName, InputBox.Text);
+                this.InputBox.Text = "";
                 button.Handled = true;
                 button.SuppressKeyPress = true;
 

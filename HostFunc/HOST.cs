@@ -161,9 +161,7 @@ namespace SPChat.HostFunc
             {
                 //TaskCompletionSource tcs = new TaskCompletionSource<bool>();
 
-                while (true)
-                {
-
+             
 
                     byte[] buffer = new byte[32];                                      // initial listen for determining connection scheme
                     Task<int> result = Client.ReceiveAsync(buffer, SocketFlags.None);
@@ -204,12 +202,12 @@ namespace SPChat.HostFunc
                         if (username == null||username=="") { Program.AddServerLogActionDelegate($"Client disconnected: {Client.RemoteEndPoint}"); }
                         else { Program.AddServerLogActionDelegate($"Client disconnected:{username}"); }
 
-                        break;
+                 
 
                     }
 
                     
-                }
+                
 
 
                 

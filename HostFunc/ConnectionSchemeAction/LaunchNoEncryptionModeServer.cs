@@ -34,15 +34,36 @@ namespace SPChat.HostFunc
         {
             Task.Run(async () =>
             {
+                bool breakswitch;
             while (true)
             {
+                    breakswitch = false;
                     MessageBox.Show("Listening for steer");
                     int SteerSwitch =await HTask.SteerAsync(Client);
                     if (Empty(SteerSwitch)) { break;}
                     else
                     {
+                        switch (SteerSwitch)
+                        {
+                            case 1: // Negotiate buffer
 
-                        MessageBox.Show(Convert.ToString(SteerSwitch));
+                                (int receivedBytes,int buffersize) = await HTask.NegotiateBufferAsync(Client);
+
+                            break;
+
+
+                        }
+
+
+
+
+
+
+
+
+
+                        if (breakswitch) { break; }
+                       // MessageBox.Show(Convert.ToString(SteerSwitch));
                     }
                     
 

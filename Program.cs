@@ -20,7 +20,7 @@ namespace SPChat
         /// </summary>
         public static Predicate<string> Disconnect_delegate; // delegate for disconnecting client        
         public static Action<Color,string,string> InsertMessegeFromServer;
-        public static Action<string> SendMessegeToServer;
+        public static Action<string,string> SendMessegeToServer;  /// <Username,Messege>
 
         //-------------------------------------------------------------------------------//
         //Host form delegates
