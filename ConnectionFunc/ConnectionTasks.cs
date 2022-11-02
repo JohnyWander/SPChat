@@ -18,27 +18,39 @@ namespace SPChat.ConnectionFunc
 
 
 
-        public async Task<int> SteerAsync(TcpClient socket,int JobID)
+        public async Task<int> SteerAsync(NetworkStream ns,int JobID)
         {
-            using (NetworkStream ns = socket.GetStream())
-            {
+            
                 await ns.WriteAsync(BitConverter.GetBytes(JobID));
-
-            }
-
+            await ns.FlushAsync();
+            
+           
             return 0;
         }
-        public  async Task<int> NegotiateBufferAsync(TcpClient socket, int DesiredBufferLength)
+        public  async Task<int> NegotiateBufferAsync(NetworkStream ns, int DesiredBufferLength)
         {
-            using (NetworkStream ns = socket.GetStream())
-            {
+            
                 await ns.WriteAsync(BitConverter.GetBytes(DesiredBufferLength));
-            }
+            await ns.FlushAsync();
+            
 
-
+            
 
             return 0;
         }
+
+
+        public async Task<int> SendMessageAsync(NetworkStream ns, byte[] Message)
+        {
+         //   MessageBox.Show(Encoding.UTF8.GetString(Message));
+         
+             
+                await ns.WriteAsync(Message);
+
+            await ns.FlushAsync();
+            return 0;
+        }
+
 
         public byte[] CreateBuffer(int length)
         {

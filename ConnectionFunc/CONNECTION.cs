@@ -62,6 +62,7 @@ namespace SPChat.ConnectionFunc
 
                 try
                 {
+                    
                      connect = client.ConnectAsync(IPAddress.Parse(ip_), Convert.ToInt32(port_));
                     connect.GetAwaiter().GetResult();
                         connection_ok = true;
@@ -72,15 +73,15 @@ namespace SPChat.ConnectionFunc
                     int x = (int)ConnectionScheme;
                     byte[] schemeByteMessege = BitConverter.GetBytes(x);
 
-                    MessageBox.Show(Convert.ToString(x));
+                 
                     ns.Write(schemeByteMessege, 0, schemeByteMessege.Length);
-
+                    ns.FlushAsync().GetAwaiter().GetResult();
 
                     switch (x)
                     {
                         case 1:
                             //   MessageBox.Show("Using No encryption scheme (client)");
-                            LaunchNoEncyptionModeClient noencryptionclient = new LaunchNoEncyptionModeClient(client);
+                            LaunchNoEncyptionModeClient noencryptionclient = new LaunchNoEncyptionModeClient(ns);
                             noencryptionclient.run();
                             
 

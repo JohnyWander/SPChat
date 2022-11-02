@@ -11,7 +11,13 @@ namespace SPChat.HostFunc
     {
      
     
-        
+        public int Steer (Socket socket)
+        {
+            byte[] buffer = new byte[1024];
+            int rec = socket.Receive(buffer);
+            int steer = BitConverter.ToInt32(buffer,0);
+            return steer;
+        }
       
         public async Task<int>  SteerAsync(Socket socket)
         {
@@ -38,6 +44,16 @@ namespace SPChat.HostFunc
 
             return new Tuple<int,int>(bytesReceived,BitConverter.ToInt32(buffer));
         }
+
+        public async Task<Tuple<int, byte[]>> ReceiveMessageAsync(Socket socket, byte[] bufferr)
+        {
+            int bytesReceived = await socket.ReceiveAsync(bufferr, SocketFlags.None);
+        
+            MessageBox.Show("received:"+ Encoding.UTF8.GetString(bufferr));
+            return new Tuple<int, byte[]>(bytesReceived, bufferr);
+
+        }
+
 
       
         public byte[] CreateBuffer(int length)

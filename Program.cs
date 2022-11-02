@@ -26,7 +26,7 @@ namespace SPChat
         //Host form delegates
         public static Action<string> AddServerLogActionDelegate;
         public static Predicate<string> StopServer_delegate; // delegate for stopping server
-
+        
 
         /// Instances
 
