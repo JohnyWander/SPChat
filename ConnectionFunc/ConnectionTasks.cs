@@ -23,8 +23,7 @@ namespace SPChat.ConnectionFunc
             
                 await ns.WriteAsync(BitConverter.GetBytes(JobID));
             await ns.FlushAsync();
-            
-           
+
             return 0;
         }
         public  async Task<int> NegotiateBufferAsync(NetworkStream ns, int DesiredBufferLength)

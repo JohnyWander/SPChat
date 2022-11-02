@@ -26,7 +26,6 @@ namespace SPChat.HostFunc
             int BytesReceived = await socket.ReceiveAsync(buffer,SocketFlags.None);
 
 
-            
 
             return BitConverter.ToInt32(buffer, 0);
             

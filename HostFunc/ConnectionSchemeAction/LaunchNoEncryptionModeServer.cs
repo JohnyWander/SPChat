@@ -56,7 +56,7 @@ namespace SPChat.HostFunc
                     
                   
                    // MessageBox.Show("Listening for steer");
-                    int SteerSwitch = HTask.Steer(Client);
+                    int SteerSwitch = await HTask.SteerAsync(Client);
                      
 
                     MessageBox.Show("steer is "+Convert.ToString(SteerSwitch));
