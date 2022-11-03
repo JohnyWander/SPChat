@@ -28,7 +28,7 @@ namespace SPChat.ConnectionFunc
 
         
 
-        public CONNECTION(out Predicate<string> Disconnect_delegate, Common.ConnectionSchemes.schemes ConnectionScheme, string ip_="127.0.0.1",string port_="3333")
+        public CONNECTION(out Predicate<string> Disconnect_delegate, Common.ConnectionSchemes.schemes ConnectionScheme, Color ClientColor, string username ,string ip_="127.0.0.1",string port_="3333")
         {
           
             ip = ip_;

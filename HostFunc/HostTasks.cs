@@ -48,7 +48,7 @@ namespace SPChat.HostFunc
         {
             int bytesReceived = await socket.ReceiveAsync(bufferr, SocketFlags.None);
         
-            MessageBox.Show("received:"+ Encoding.UTF8.GetString(bufferr));
+           // MessageBox.Show("received:"+ Encoding.UTF8.GetString(bufferr));
             return new Tuple<int, byte[]>(bytesReceived, bufferr);
 
         }

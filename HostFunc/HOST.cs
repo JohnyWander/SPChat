@@ -105,9 +105,6 @@ namespace SPChat.HostFunc
         public async Task ServerListener(CancellationToken cts,TcpListener listener, Func<bool,int> setClientsCount)
         {
 
-
-
-
             listener.Start();
             while (!cts.IsCancellationRequested )
             {
@@ -136,6 +133,15 @@ namespace SPChat.HostFunc
 
         }
 
+        public async Task RelayToAllAsync(Color ClientColor,string Username,string Message)
+        {
+
+
+
+
+        }
+
+
      
 
 
@@ -150,6 +156,8 @@ namespace SPChat.HostFunc
 
           public LaunchNoEncryptionModeServer NoEncryptionModeServer;
           
+          private Color ClientColor;
+          private string Username;
 
 
            public HandleClient(Socket socket, Func<string, bool> set_Conn_Count_GUI,Func<bool,int>set_HOST_conn_count)
@@ -170,6 +178,9 @@ namespace SPChat.HostFunc
 
                     int ConnectionSchemeSwitch = BitConverter.ToInt32(buffer, 0);
                     //  MessageBox.Show(Convert.ToString(ConnectionSchemeSwitch));
+
+
+
                     
 
                     switch (ConnectionSchemeSwitch)

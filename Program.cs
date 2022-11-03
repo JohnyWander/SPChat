@@ -1,3 +1,5 @@
+using SPChat.HostFunc;
+
 namespace SPChat
 {
     internal static class Program
@@ -23,10 +25,15 @@ namespace SPChat
         public static Action<string,string> SendMessegeToServer;  /// <Username,Messege>
 
         //-------------------------------------------------------------------------------//
-        //Host form delegates
+        //Host/ Host form delegates
         public static Action<string> AddServerLogActionDelegate;
         public static Predicate<string> StopServer_delegate; // delegate for stopping server
-        
+
+        public static Action<string> RelayToAll; //todo
+        ////////////
+        //NoEncryptionServermode delegates
+        public static IDictionary<string, HandleClient> CurrentConnectionList;
+
 
         /// Instances
 
@@ -53,13 +60,13 @@ namespace SPChat
 
     
 
-    public static async Task<bool> start_connection(string ip, string port,Common.ConnectionSchemes.schemes ConnectionScheme )
+    public static async Task<bool> start_connection(string ip, string port,Common.ConnectionSchemes.schemes ConnectionScheme,Color ClientColor,string username )
         {
 
 
 
 
-            ConnectionFunc.CONNECTION connection  = new ConnectionFunc.CONNECTION(out Disconnect_delegate, ConnectionScheme, ip, port);
+            ConnectionFunc.CONNECTION connection  = new ConnectionFunc.CONNECTION(out Disconnect_delegate, ConnectionScheme,ClientColor,username, ip, port);
 
             if (connection.connection_ok)
             {

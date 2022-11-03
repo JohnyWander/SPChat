@@ -46,15 +46,15 @@ namespace SPChat.ConnectionFunc
                 await ClientTasks.NegotiateBufferAsync(Client, MessegeLength);
                
 
-                await Task.Delay(1000);
+              //  await Task.Delay(1000);
                 await  ClientTasks.SteerAsync(Client, (int)ServerSteers.SendReceiveMessege);
-                await Task.Delay(1000);
+              //  await Task.Delay(1000);
                 
                 await ClientTasks.SendMessageAsync(Client, MessegeBytes);
 
+            //    await Task.Delay(1000);
 
-
-                  await ListenForServer();
+                await ListenForServer();
 
               
 
@@ -86,7 +86,7 @@ namespace SPChat.ConnectionFunc
         private async Task ListenForServer()
         {
 
-            MessageBox.Show("Listening for server output");
+          //  MessageBox.Show("Listening for server output");
             byte[] receiveBuffer = new byte[1024];
 
             

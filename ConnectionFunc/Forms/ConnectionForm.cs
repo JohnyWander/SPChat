@@ -13,6 +13,7 @@ using System.Windows.Forms;
 
 using SPChat.Configuration; // prog itself
 using static System.Net.Mime.MediaTypeNames;
+using System.Threading.Channels;
 
 namespace SPChat.ConnectionFunc.Forms
 {
@@ -22,6 +23,8 @@ namespace SPChat.ConnectionFunc.Forms
         private string THISClientUserName;
         public ConnectionForm()
         {
+          //  Channel<Action<string, string>> MessagesToServerChannel; //toDONEXT
+
             InitializeComponent();
             string ip, port;
             ConfigManipulator.ConnectionConf_GetConfig(ConfigManipulator.ConnectionConfPools.IP, out ip);
@@ -76,7 +79,7 @@ namespace SPChat.ConnectionFunc.Forms
 
             Common.ConnectionSchemes.schemes selected = (ConnectionSchemes.schemes)Enum.Parse(typeof(ConnectionSchemes.schemes), withoutspaces);
 
-            if (Program.start_connection(this.IP.Text, this.port.Text,selected).GetAwaiter().GetResult()==true)
+            if (Program.start_connection(this.IP.Text, this.port.Text,selected,THISClientColor,THISClientUserName).GetAwaiter().GetResult()==true)
             {
                 this.FormClosing += new FormClosingEventHandler((object sender, FormClosingEventArgs e) => Program.Disconnect_delegate(null));
                 Program.InsertMessegeFromServer = InputChatMessege;
