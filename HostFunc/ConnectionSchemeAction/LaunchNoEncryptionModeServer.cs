@@ -24,7 +24,7 @@ namespace SPChat.HostFunc
 
         public LaunchNoEncryptionModeServer(Socket Client_,Func<bool,int> _ConnectionCountChange)
         {
-           
+            SetConnectedClients(Program.CurrentConnectionList);
 
 
             Client = Client_;
@@ -61,12 +61,12 @@ namespace SPChat.HostFunc
                 bool breakswitch=false;
             while (true)
             {
-                
+                    SetConnectedClients(Program.CurrentConnectionList);
                     
                   
                    // MessageBox.Show("Listening for steer");
                     int SteerSwitch = await HTask.SteerAsync(Client);
-                     
+                 //   int SteerSwitch = HTask.SteerAsync(Client).GetAwaiter().GetResult();
 
                     //MessageBox.Show("steer is "+Convert.ToString(SteerSwitch));
                     if (Empty(SteerSwitch)) { MessageBox.Show("EMPTY"); ConnectionCountChange(false); break;}
@@ -78,7 +78,8 @@ namespace SPChat.HostFunc
                                 
                               //  MessageBox.Show("Negotiating buffer with client");
                                 (int receivedBytes,int buffersize) = await HTask.NegotiateBufferAsync(Client);
-                                if(receivedBytes>0) {
+                               // (int receivedBytes, int buffersize) =  HTask.NegotiateBufferAsync(Client).GetAwaiter().GetResult();
+                                if (receivedBytes>0) {
                                     MessageBuffer = new byte[buffersize];
                                    // MessageBox.Show("buffer size is " + Convert.ToString(buffersize));
                                    
@@ -89,10 +90,12 @@ namespace SPChat.HostFunc
                             case 2: // Receive Message
                                // MessageBox.Show("RECEIVE");
                                 (int receivedMessagebytes, byte[] messageBytes) = await HTask.ReceiveMessageAsync(Client, MessageBuffer);
+                               // (int receivedMessagebytes, byte[] messageBytes) = HTask.ReceiveMessageAsync(Client, MessageBuffer).GetAwaiter().GetResult();
                                 string messege = Encoding.UTF8.GetString(messageBytes);
                               //  MessageBox.Show(messege);
                                 Program.AddServerLogActionDelegate(messege);
 
+                           await HTask.RelayAsync(ConnectedClients, Color.Red, "XD", messege);
 
                             break;
 

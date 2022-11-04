@@ -53,7 +53,24 @@ namespace SPChat.HostFunc
 
         }
 
+        public async Task<bool> RelayAsync(IDictionary<string,HandleClient> clients,Color Color,string Username,string Message)
+        {
 
+            foreach(var EndPoint_HandleClient in clients)
+            {
+
+                HandleClient clientInstance = EndPoint_HandleClient.Value;
+
+                Socket clientSocket = clientInstance.Client;
+
+                byte[] btmess = Encoding.UTF8.GetBytes(Message);
+                await clientSocket.SendAsync(btmess, SocketFlags.None);
+
+                
+            }
+            return true;
+
+        }
       
         public byte[] CreateBuffer(int length)
         {

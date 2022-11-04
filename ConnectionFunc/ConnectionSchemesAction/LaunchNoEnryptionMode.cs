@@ -91,7 +91,7 @@ namespace SPChat.ConnectionFunc
 
             
                 int bytes_received = await Client.Socket.ReceiveAsync(receiveBuffer, SocketFlags.None, CancelListenFromServer.Token);
-                MessageBox.Show("Server Relayed:" + Encoding.UTF8.GetString(receiveBuffer));
+               // MessageBox.Show("Server Relayed:" + Encoding.UTF8.GetString(receiveBuffer));
             
 
         }

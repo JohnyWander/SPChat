@@ -118,6 +118,8 @@ namespace SPChat.HostFunc
                     clients_connected_count++;
                     int new_count = clients_connected_count;
                     clients_connected.Add(endpoint, new HandleClient(client, set_countGUI,setClientsCount));
+
+                    Program.CurrentConnectionList = clients_connected;
                    
                     set_countGUI(Convert.ToString(clients_connected_count));
                     
@@ -151,13 +153,13 @@ namespace SPChat.HostFunc
 
         internal class HandleClient
         {
-          private Socket Client;
+         public Socket Client;
           private CancellationTokenSource cts = new CancellationTokenSource();
 
           public LaunchNoEncryptionModeServer NoEncryptionModeServer;
           
-          private Color ClientColor;
-          private string Username;
+          public Color ClientColor;
+          public string Username;
 
 
            public HandleClient(Socket socket, Func<string, bool> set_Conn_Count_GUI,Func<bool,int>set_HOST_conn_count)

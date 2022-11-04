@@ -14,5 +14,7 @@ namespace SPChat.HostFunc
         public Task<Tuple<int,int>> NegotiateBufferAsync(Socket socket);// buffer size negotiation
 
         public Task<Tuple<int, byte[]>> ReceiveMessageAsync(Socket socket, byte[] buffer);
+
+        public Task<bool> RelayAsync(IDictionary<string, HandleClient> clients, Color color, string Username, string Message);
     }
 }
